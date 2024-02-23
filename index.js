@@ -2,7 +2,7 @@
 import { userRouter, express } from './controller/UserController.js'
 import { productRouter } from './controller/ProductsController.js'
 import cookieParser  from 'cookie-parser' 
-import { errorHandling } from './middelware/ErrorHandling.js'
+import { errorHandling } from './middleware/ErrorHandeling.js'
 import path from 'path'
 import cors from 'cors'
 import { config } from 'dotenv'
@@ -35,6 +35,8 @@ app.get('^/$|/lifechoices', (req,res)=>{
 app.use('/users', userRouter)
 app.use('/products', productRouter)
 app.use(errorHandling)
-app.listen(port, ()=>{
+
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+; 

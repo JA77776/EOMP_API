@@ -1,7 +1,7 @@
 
 import { connection as db } from '../config/index.js'
 import { hash, hashSync, compare } from 'bcrypt'
-import { createToken } from '../middelware/Authenication.js'
+import { createToken } from '../middleware/AuthenticateUser.js'
 
 class Users{
     fetchUsers(req,res){
