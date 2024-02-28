@@ -1,11 +1,12 @@
 import express  from "express";
 import bodyParser from "body-parser";
 import { products } from "../models/index.js";
+import { verifyToken } from "../middleware/AuthenticateUser.js";
 
 const productRouter= express();
 
 //Fetch all products
-productRouter.get('/', (req, res) => {
+productRouter.get("/",verifyToken, (req, res) => {
     try {
         products.fetchProducts(req, res);
     } catch (e) {
@@ -36,7 +37,7 @@ productRouter.post('/addProduct',  bodyParser.json(), (req,res) => {
         products.addProduct(req,res)
     } catch (e) {
         res.json({
-            status: statusCode,
+            status: res.statusCode,
             msg: "Failed to add product",
         });
     }

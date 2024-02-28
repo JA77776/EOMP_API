@@ -13,3 +13,13 @@ function errorHandling(err,req,res,next){
 export{
     errorHandling
 }
+
+// function errorHandling(err, req, res, next) {
+//     console.error(err.stack); // Logging the error
+//     res.status(err.status || res.statusCode || 500).json({
+//         status: err.status || res.statusCode || 500,
+//         msg: 'An error has occurred. Please try again later',
+//     });
+// }
+
+// export { errorHandling };
