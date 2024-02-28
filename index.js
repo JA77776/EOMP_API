@@ -3,10 +3,39 @@ import { userRouter, express } from './controller/UserController.js'
 import { productRouter } from './controller/ProductsController.js'
 import cookieParser  from 'cookie-parser' 
 import { errorHandling } from './middleware/ErrorHandeling.js'
-import path from 'path'
+import  path  from 'path'
 import cors from 'cors'
 import { config } from 'dotenv'
 config()
+// import { config } from 'dotenv-safe'
+// config()
+import rateLimit from 'express-rate-limit';
+import winston from 'winston';
+
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    ],
+});
+
+
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 100, 
+});
+
+// app.use(limiter);
+
+// app.use((req, res, next) => {
+//     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+//     res.setHeader('X-Content-Type-Options', 'nosniff');
+//     res.setHeader('X-Frame-Options', 'DENY');
+//     res.setHeader('X-XSS-Protection', '1; mode=block');
+//     next();
+// });
+
 
 const app = express()
 const port = +process.env.PORT || 4000 
@@ -27,8 +56,21 @@ app.use(
         extended: true,
     }),
     cookieParser(),
-    cors()
+    cors({
+        origin: 'https://your-trusted-frontend-domain.com',
+        credentials: true,
+    })
 )
+
+
+
+process.on('SIGINT', () => {
+    console.log('Received SIGINT. Shutting down gracefully...');
+    // Perform cleanup tasks and close database connections
+    process.exit(0);
+});
+
+
 app.get('^/$|/lifechoices', (req,res)=>{
     res.status(200).sendFile(path.join(__dirname, './static/CSS/styling.css'))
 })
