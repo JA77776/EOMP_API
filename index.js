@@ -61,11 +61,9 @@ process.on('SIGINT', () => {
 });
 
 app.use(express.static('static'))
-// app.get('/', (req,res)=>{
-//     res.status(200).sendFile(path.join(__dirname,'./static/html/index.html'))
-// })
-app.use('/users', userRouter)
-app.use('/products', productRouter)
+
+app.use('/users', userRouter, express)
+app.use('/products', productRouter, express)
 app.use(errorHandling)
 
 app.listen(port, () => {
