@@ -10,7 +10,7 @@ class Products{
             if(err) throw err
             res.json({
                 status: res.statusCode,
-                results
+                results,
             })
         })
     }
@@ -24,7 +24,7 @@ class Products{
             if(err) throw err
             res.json({
                 status: res.statusCode,
-                result
+                result,
             })
         })
     }

@@ -25,12 +25,18 @@ function verifyToken(req,res,next){
             // (?) avoid undefined answers no errors
             res?.json({
                 status: res.statusCode,
-                msg: 'Please provide the correct credentials'
+                msg: 'Please provide the correct credentials',
             })
         }
+    }else {
+        res?.json({
+            status: res.statusCode,
+            msg: "Please login.",
+        });
     }
 }
 
 export{
-    createToken, verifyToken
+    createToken,
+    verifyToken
 }

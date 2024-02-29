@@ -19,7 +19,14 @@ class Users{
     }
     fetchUser(req,res){
         const qry = `
-        SELECT userID, firstName, lastName, userAge, gender, emailAdd, userPwd, userRole
+        SELECT userID,
+        firstName,
+        lastName,
+        userAge,
+        gender,
+        emailAdd,
+        userPwd,
+        userRole
         FROM Users 
         WHERE userID = ${req.params.id};
         `
@@ -27,7 +34,7 @@ class Users{
             if (err) throw err
             res.json({
                 status: res.statusCode,
-                result
+                result,
             })
         })
     }
@@ -76,7 +83,7 @@ class Users{
         `;
 
         db.query(qry, [data], (err) => {
-            if (err) throw err
+            if (err) throw err 
                 res.json({
                     status: res.statusCode,
                     msg: "Updating user",
@@ -128,7 +135,7 @@ class Users{
                         status: res.statusCode,
                         msg: "You're logged in",
                         token,
-                        result: result[0]
+                        result: result[0],
                     })
                 }else{
                     res.json({

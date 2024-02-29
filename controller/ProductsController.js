@@ -1,12 +1,12 @@
 import express  from "express";
 import bodyParser from "body-parser";
 import { products } from "../models/index.js";
-import { verifyToken } from "../middleware/AuthenticateUser.js";
+
 
 const productRouter= express();
 
 //Fetch all products
-productRouter.get("/",verifyToken, (req, res) => {
+productRouter.get("/", (req, res) => {
     try {
         products.fetchProducts(req, res);
     } catch (e) {
@@ -47,7 +47,7 @@ productRouter.post('/addProduct',  bodyParser.json(), (req,res) => {
 // Update a prduct (PATCH)
 productRouter.patch('/:id/alterProduct', bodyParser.json(), (req, res) => {
     try {
-        products.updateProduct(req, res);
+        products.alterProduct(req, res);
     } catch (e) {
         res.json({
             status: res.statusCode,
