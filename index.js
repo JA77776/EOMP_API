@@ -50,7 +50,7 @@ app.use(
         origin: 'https://your-trusted-frontend-domain.com',
         credentials: true,
     })
-)
+);
 
 
 
@@ -60,13 +60,11 @@ process.on('SIGINT', () => {
     process.exit(0);
 });
 
-app.use(express.static('static'))
-// app.get('/', (req,res)=>{
-//     res.status(200).sendFile(path.join(__dirname,'./static/html/index.html'))
-// })
-app.use('/users', userRouter)
-app.use('/products', productRouter)
-app.use(errorHandling)
+app.use(express.static('static'));
+
+app.use('/users', userRouter, express);
+app.use('/products', productRouter, express);
+app.use(errorHandling);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
