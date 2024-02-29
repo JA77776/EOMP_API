@@ -40,7 +40,7 @@ app.use((req,res, next)=>{
     next()
 })
 app.use(
-    express.static('./static'),
+    express.static('static'),
     express.json(),
     express.urlencoded({
         extended: true,
@@ -60,10 +60,10 @@ process.on('SIGINT', () => {
     process.exit(0);
 });
 
-
-app.get('^/$|/lifechoices', (req,res)=>{
-    res.status(200).sendFile(path.join(__dirname, './static/html/index.html'))
-})
+app.use(express.static('static'))
+// app.get('/', (req,res)=>{
+//     res.status(200).sendFile(path.join(__dirname,'./static/html/index.html'))
+// })
 app.use('/users', userRouter)
 app.use('/products', productRouter)
 app.use(errorHandling)
