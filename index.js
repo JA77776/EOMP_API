@@ -20,21 +20,11 @@ const logger = winston.createLogger({
 });
 
 
-
+ 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, 
     max: 100, 
 });
-
-// app.use(limiter);
-
-// app.use((req, res, next) => {
-//     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-//     res.setHeader('X-Content-Type-Options', 'nosniff');
-//     res.setHeader('X-Frame-Options', 'DENY');
-//     res.setHeader('X-XSS-Protection', '1; mode=block');
-//     next();
-// });
 
 
 const app = express()
@@ -72,7 +62,7 @@ process.on('SIGINT', () => {
 
 
 app.get('^/$|/lifechoices', (req,res)=>{
-    res.status(200).sendFile(path.join(__dirname, './static/CSS/styling.css'))
+    res.status(200).sendFile(path.join(__dirname, './static/html/index.html'))
 })
 app.use('/users', userRouter)
 app.use('/products', productRouter)
